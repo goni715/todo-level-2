@@ -16,6 +16,7 @@ const AddTodoModal = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const newTodo = {
+      id: Math.random().toString(),
       title: task,
       description,
     }
