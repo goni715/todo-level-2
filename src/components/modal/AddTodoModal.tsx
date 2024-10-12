@@ -3,17 +3,23 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useAppDispatch } from "../../redux/hook/hook";
+import { addTodo } from "../../redux/features/todo/todoSlice";
 
 
 const AddTodoModal = () => {
   const [task, setTask] = useState('');
   const [description, setDescription] = useState('');
+  const dispatch = useAppDispatch();
 
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(task);
-    console.log(description);
+    const newTodo = {
+      title: task,
+      description,
+    }
+    dispatch(addTodo(newTodo));
   }
 
 
