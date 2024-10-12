@@ -5,6 +5,7 @@ export const store = configureStore({
   reducer: {
     todo: todoSliceReducer
   },
+  devTools: true
 })
 
 

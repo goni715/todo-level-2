@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useAppDispatch } from "../../redux/hook/hook";
@@ -64,7 +64,9 @@ const AddTodoModal = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit">Save changes</Button>
+                <DialogClose asChild>
+                  <Button type="submit">Save changes</Button>
+                </DialogClose>
               </DialogFooter>
             </form>
           </DialogContent>
