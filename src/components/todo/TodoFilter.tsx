@@ -4,26 +4,26 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadio
 
 
 const TodoFilter = () => {
-    const [position, setPosition] = useState("top");
+    const [position, setPosition] = useState("");
 
     return (
       <>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Open</Button>
+          <Button className="bg-primary-gradient text-xl font-semibold">Filter</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+            <DropdownMenuLabel>Filter by priority</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
               value={position}
               onValueChange={setPosition}
             >
-              <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="bottom">
-                Bottom
+              <DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="medium">
+                Medium
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="low">Low</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
