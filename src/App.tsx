@@ -1,10 +1,11 @@
-import TodoPage from "./pages/TodoPage";
+// import TodoPage from "./pages/TodoPage";
+import TodoWithRtkPage from "./pages/TodoWithRtkPage";
 
 
 const App = () => {
   return (
     <>
-       <TodoPage/>
+       <TodoWithRtkPage/>
     </>
   );
 };
