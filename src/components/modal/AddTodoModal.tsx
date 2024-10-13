@@ -22,9 +22,11 @@ const AddTodoModal = () => {
       id: Math.random().toString(),
       title: task,
       description,
+      priority,
       isCompleted: false
     }
     dispatch(addTodo(newTodo));
+    setOpen(false);
   }
 
 

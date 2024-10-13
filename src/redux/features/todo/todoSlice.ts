@@ -4,16 +4,27 @@ type TTodo = {
     id: string;
     title: string;
     description: string;
+    priority: string;
     isCompleted: boolean
 }
 
 type TInitialState = {
-    todos: TTodo[]
+    todos: TTodo[],
+    id: string;
+    title: string;
+    description: string;
+    priority: string;
 }
 
+
+
 const initialState: TInitialState = {
-    todos: []
-}
+  todos: [],
+  id: "",
+  title: "",
+  description: "",
+  priority: "",
+};
 
 
 const todoSlice = createSlice({
@@ -36,6 +47,18 @@ const todoSlice = createSlice({
             const completedTodos = state.todos.filter((cv)=>cv.isCompleted === true);
             const incompletedTodos = state.todos.filter((cv)=>cv.isCompleted === false);
             state.todos = [...incompletedTodos, ...completedTodos]
+        },
+        setId: (state, action: PayloadAction<string>) => {
+            state.id = action.payload;
+        },
+        setTitle: (state, action: PayloadAction<string>) => {
+            state.title = action.payload;
+        },
+        setDescription: (state, action: PayloadAction<string>) => {
+            state.description = action.payload;
+        },
+        setPriority: (state, action: PayloadAction<string>) => {
+            state.priority = action.payload;
         }
     }
 })
@@ -44,7 +67,7 @@ const todoSlice = createSlice({
 
 
 
-export const { addTodo, removeTodo, toggleCompleted } = todoSlice.actions;
+export const { addTodo, removeTodo, toggleCompleted, setId, setTitle, setDescription, setPriority } = todoSlice.actions;
 
 const todoSliceReducer = todoSlice.reducer;
 export default todoSliceReducer;

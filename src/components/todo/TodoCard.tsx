@@ -1,4 +1,4 @@
-import { removeTodo, toggleCompleted } from "../../redux/features/todo/todoSlice";
+import { removeTodo, setId, toggleCompleted } from "../../redux/features/todo/todoSlice";
 import { useAppDispatch } from "../../redux/hook/hook";
 import { Button } from "../ui/button";
 
@@ -6,11 +6,12 @@ type TTodoCardProps = {
   id: string;
   title: string;
   description: string;
+  priority: string;
   isCompleted: boolean;
 }
 
 
-const TodoCard = ({title, description, id, isCompleted } : TTodoCardProps) => {
+const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardProps) => {
   const dispatch = useAppDispatch();
   
     return (
@@ -20,8 +21,9 @@ const TodoCard = ({title, description, id, isCompleted } : TTodoCardProps) => {
           <p className="font-semibold">{title}</p>
           <p className={`${isCompleted ? 'text-green-500' : 'text-red-500'}`}>{isCompleted ? "Done" : "Pending"}</p>
           <p>{description}</p>
+          <p className="capitalize">{priority}</p>
           <div className="space-x-5">
-            <Button className="bg-[#5C53FE]">
+            <Button className="bg-[#5C53FE]" onClick={()=>dispatch(setId(id))}>
               <svg
                 className="size-5"
                 data-slot="icon"
