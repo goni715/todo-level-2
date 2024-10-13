@@ -1,5 +1,6 @@
-import { removeTodo, setId, toggleCompleted } from "../../redux/features/todo/todoSlice";
+import { removeTodo, SetDescription, SetId, SetModalOpen, SetPriority, SetTitle, toggleCompleted } from "../../redux/features/todo/todoSlice";
 import { useAppDispatch } from "../../redux/hook/hook";
+import EditTodoModal from "../modal/EditTodoModal";
 import { Button } from "../ui/button";
 
 type TTodoCardProps = {
@@ -13,6 +14,14 @@ type TTodoCardProps = {
 
 const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardProps) => {
   const dispatch = useAppDispatch();
+
+  const handleEditClick = () => {
+    dispatch(SetModalOpen(true));
+    dispatch(SetId(id));
+    dispatch(SetTitle(id));
+    dispatch(SetDescription(id));
+    dispatch(SetPriority(priority));
+  }
   
     return (
       <>
@@ -23,7 +32,7 @@ const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardPr
           <p>{description}</p>
           <p className="capitalize">{priority}</p>
           <div className="space-x-5">
-            <Button className="bg-[#5C53FE]" onClick={()=>dispatch(setId(id))}>
+            <Button className="bg-[#5C53FE]" onClick={handleEditClick}>
               <svg
                 className="size-5"
                 data-slot="icon"
@@ -59,6 +68,8 @@ const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardPr
             </Button>
           </div>
         </div>
+
+        <EditTodoModal/>
       </>
     );
 };

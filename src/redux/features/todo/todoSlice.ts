@@ -14,6 +14,7 @@ type TInitialState = {
     title: string;
     description: string;
     priority: string;
+    modalOpen: boolean;
 }
 
 
@@ -24,6 +25,7 @@ const initialState: TInitialState = {
   title: "",
   description: "",
   priority: "",
+  modalOpen: false
 };
 
 
@@ -48,16 +50,19 @@ const todoSlice = createSlice({
             const incompletedTodos = state.todos.filter((cv)=>cv.isCompleted === false);
             state.todos = [...incompletedTodos, ...completedTodos]
         },
-        setId: (state, action: PayloadAction<string>) => {
+        SetModalOpen: (state, action: PayloadAction<boolean>) => {
+            state.modalOpen = action.payload;
+        },
+        SetId: (state, action: PayloadAction<string>) => {
             state.id = action.payload;
         },
-        setTitle: (state, action: PayloadAction<string>) => {
+        SetTitle: (state, action: PayloadAction<string>) => {
             state.title = action.payload;
         },
-        setDescription: (state, action: PayloadAction<string>) => {
+        SetDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload;
         },
-        setPriority: (state, action: PayloadAction<string>) => {
+        SetPriority: (state, action: PayloadAction<string>) => {
             state.priority = action.payload;
         }
     }
@@ -67,7 +72,7 @@ const todoSlice = createSlice({
 
 
 
-export const { addTodo, removeTodo, toggleCompleted, setId, setTitle, setDescription, setPriority } = todoSlice.actions;
+export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetId, SetTitle, SetDescription, SetPriority } = todoSlice.actions;
 
 const todoSliceReducer = todoSlice.reducer;
 export default todoSliceReducer;
