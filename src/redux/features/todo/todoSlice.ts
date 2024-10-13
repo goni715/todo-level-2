@@ -23,6 +23,7 @@ type TInitialState = {
     description: string;
     priority: string;
     modalOpen: boolean;
+    filterPriority: string;
 }
 
 
@@ -34,7 +35,8 @@ const initialState: TInitialState = {
   title: "",
   description: "",
   priority: "",
-  modalOpen: false
+  modalOpen: false,
+  filterPriority: 'all'
 };
 
 
@@ -92,6 +94,7 @@ const todoSlice = createSlice({
             currentTodo!.priority = priority;
         },
         FilterTodos:(state,action: PayloadAction<string>)=>{
+            state.filterPriority = action.payload;
             if(action.payload==="all"){
                 state.todos=state.Todos;
             }
