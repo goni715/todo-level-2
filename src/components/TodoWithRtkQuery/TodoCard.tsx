@@ -8,11 +8,11 @@ type TTodoCardProps = {
   title: string;
   description: string;
   priority: string;
-  status: string;
+  isCompleted: boolean;
 }
 
 
-const TodoCard = ({title, description, id, status, priority } : TTodoCardProps) => {
+const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardProps) => {
   const dispatch = useAppDispatch();
 
   const handleEditClick = () => {
@@ -26,11 +26,14 @@ const TodoCard = ({title, description, id, status, priority } : TTodoCardProps) 
     return (
       <>
         <div className="bg-white rounded-md flex justify-between items-center p-3 border">
-          <input onChange={()=>dispatch(toggleCompleted(id))} className="cursor-pointer" type="checkbox" checked={status==="finished"} name="check"/>
-          <p className="font-semibold">{title}</p>
-          <p className={`capitalize ${status==="finished" ? 'text-green-500' : 'text-red-500'}`}>{status}</p>
-          <p>{description}</p>
-          <p className="capitalize">{priority}</p>
+          <input onChange={()=>dispatch(toggleCompleted(id))} className="cursor-pointer mr-4" type="checkbox" checked={isCompleted} name="check"/>
+          <p className="font-semibold flex-1">{title}</p>
+          <div className="flex-1 flex items-center gap-2">
+            <div className={`size-3 rounded-full ${priority==="high" && 'bg-red-500' || priority==="medium" && 'bg-yellow-500' || priority==="low" && 'bg-blue-500'}`}></div>
+            <p className="capitalize">{priority}</p>
+          </div>
+          <p className={`capitalize flex-1 ${isCompleted ? 'text-green-500' : 'text-red-500'}`}>{isCompleted ? 'completed' : 'pending'}</p>
+          <p className="flex-[2]">{description}</p>
           <div className="space-x-5">
             <Button className="bg-[#5C53FE]" onClick={handleEditClick}>
               <svg
