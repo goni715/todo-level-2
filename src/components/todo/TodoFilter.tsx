@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadio
 
 
 const TodoFilter = () => {
-    const [position, setPosition] = useState("");
+    const [position, setPosition] = useState("all");
 
     return (
       <>
@@ -19,6 +19,7 @@ const TodoFilter = () => {
               value={position}
               onValueChange={setPosition}
             >
+              <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="medium">
                 Medium
