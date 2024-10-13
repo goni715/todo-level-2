@@ -1,11 +1,11 @@
 import { FormEvent } from "react";
 import { Button } from "../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useAppDispatch, useAppSelector } from "../../redux/hook/hook";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
-import { SetDescription, SetModalOpen, SetPriority, SetTitle } from "../../redux/features/todo/todoSlice";
+import { editTodo, SetDescription, SetModalOpen, SetPriority, SetTitle } from "../../redux/features/todo/todoSlice";
 
 
 const EditTodoModal = () => {
@@ -15,26 +15,20 @@ const EditTodoModal = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // const newTodo = {
-    //   id: Math.random().toString(),
-    //   title: task,
-    //   description,
-    //   priority,
-    //   isCompleted: false
-    // }
-    // dispatch(addTodo(newTodo));
-    // setOpen(false);
+    const updatedTodo = {
+      id,
+      title,
+      description,
+      priority,
+    }
+    dispatch(editTodo(updatedTodo));
+    dispatch(SetModalOpen(false));
   }
 
 
     return (
       <>
         <Dialog open={modalOpen} onOpenChange={()=>dispatch(SetModalOpen(false))}>
-          {/* <DialogTrigger asChild>
-            <Button onClick={()=>setOpen(true)} className="bg-primary-gradient text-xl font-semibold">
-              Add todo
-            </Button>
-          </DialogTrigger>         */}
           <DialogContent className="sm:max-w-[425px]" onInteractOutside={(e) => e.preventDefault()}>
             <DialogHeader>
               <DialogTitle>Edit Task</DialogTitle>

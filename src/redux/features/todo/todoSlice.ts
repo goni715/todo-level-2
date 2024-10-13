@@ -8,6 +8,13 @@ type TTodo = {
     isCompleted: boolean
 }
 
+type TEditTodo = {
+    id: string;
+    title: string;
+    description: string;
+    priority: string;
+}
+
 type TInitialState = {
     todos: TTodo[],
     id: string;
@@ -64,7 +71,14 @@ const todoSlice = createSlice({
         },
         SetPriority: (state, action: PayloadAction<string>) => {
             state.priority = action.payload;
-        }
+        },
+        editTodo: (state, action : PayloadAction<TEditTodo>) => {
+            const { id, title, description, priority } = action.payload;
+            const currentTodo = state.todos.find((cv)=>cv.id == id);
+            currentTodo!.title = title; //undefined shortcut
+            currentTodo!.description = description;
+            currentTodo!.priority = priority;
+        },
     }
 })
 
@@ -72,7 +86,7 @@ const todoSlice = createSlice({
 
 
 
-export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetId, SetTitle, SetDescription, SetPriority } = todoSlice.actions;
+export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetId, SetTitle, SetDescription, SetPriority, editTodo } = todoSlice.actions;
 
 const todoSliceReducer = todoSlice.reducer;
 export default todoSliceReducer;

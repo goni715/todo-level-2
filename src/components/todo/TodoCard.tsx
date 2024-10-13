@@ -18,8 +18,8 @@ const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardPr
   const handleEditClick = () => {
     dispatch(SetModalOpen(true));
     dispatch(SetId(id));
-    dispatch(SetTitle(id));
-    dispatch(SetDescription(id));
+    dispatch(SetTitle(title));
+    dispatch(SetDescription(description));
     dispatch(SetPriority(priority));
   }
   
