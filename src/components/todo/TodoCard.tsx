@@ -12,12 +12,11 @@ type TTodoCardProps = {
 
 const TodoCard = ({title, description, id, isCompleted } : TTodoCardProps) => {
   const dispatch = useAppDispatch();
-
   
     return (
       <>
         <div className="bg-white rounded-md flex justify-between items-center p-3 border">
-          <input onChange={()=>dispatch(toggleCompleted(id))} type="checkbox" />
+          <input onChange={()=>dispatch(toggleCompleted(id))} className="cursor-pointer" type="checkbox" checked={isCompleted} name="check"/>
           <p className="font-semibold">{title}</p>
           <p className={`${isCompleted ? 'text-green-500' : 'text-red-500'}`}>{isCompleted ? "Done" : "Pending"}</p>
           <p>{description}</p>

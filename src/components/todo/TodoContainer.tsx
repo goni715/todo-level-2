@@ -13,7 +13,6 @@ const TodoContainer = () => {
         <div>
           <div className="flex justify-between mb-5">
             <AddTodoModal />
-            <button>Filter</button>
             <TodoFilter />
           </div>
           <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px]">

@@ -4,7 +4,7 @@ type TTodo = {
     id: string;
     title: string;
     description: string;
-    isCompleted?: boolean
+    isCompleted: boolean
 }
 
 type TInitialState = {
@@ -21,7 +21,8 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action : PayloadAction<TTodo>) => {
-            state.todos.push({...action.payload, isCompleted: false})
+            //state.todos.push({...action.payload, isCompleted: false})
+            state.todos = [{...action.payload}, ...state.todos]
         },
         removeTodo: (state, action : PayloadAction<string>) => {
             state.todos = state.todos.filter((cv)=>cv.id !== action.payload);
