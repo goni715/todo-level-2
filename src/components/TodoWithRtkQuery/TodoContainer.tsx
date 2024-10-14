@@ -1,12 +1,21 @@
 import { useGetTodosQuery } from "../../redux/features/api/api";
+import { useAppSelector } from "../../redux/hook/hook";
 import AddTodoModalWithRtk from "../modal/AddTodoModalWithRtk";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 
 
 const TodoContainer = () => {
-  const { data, isLoading } = useGetTodosQuery(undefined);
+  const { filterPriority } = useAppSelector((state)=>state.todo);
+  const { data, isLoading } = useGetTodosQuery(filterPriority);
   const todos = data?.data;
+
+  // cache behavior-advanced
+  //pollingInterval = data refetching after 1000 ms
+  //const { data, isLoading } = useGetTodosQuery(undefined, {pollingInterval: 10000});
+
+  //refetchOnMountOrArgChange = data refetching after component onMount
+  //const { data, isLoading } = useGetTodosQuery(undefined, {refetchOnMountOrArgChange: true});
 
 
   if(isLoading){

@@ -24,7 +24,7 @@ const TodoFilter = () => {
               value={filterPriority}
               onValueChange={(val)=>dispatch(FilterTodos(val))}
             >
-              <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="">All</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="medium">
                 Medium

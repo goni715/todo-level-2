@@ -23,6 +23,7 @@ type TInitialState = {
     description: string;
     priority: string;
     modalOpen: boolean;
+    editModalOpenWithRtk: boolean;
     filterPriority: string;
 }
 
@@ -36,7 +37,8 @@ const initialState: TInitialState = {
   description: "",
   priority: "",
   modalOpen: false,
-  filterPriority: 'all'
+  editModalOpenWithRtk: false,
+  filterPriority: ''
 };
 
 
@@ -67,6 +69,9 @@ const todoSlice = createSlice({
         },
         SetModalOpen: (state, action: PayloadAction<boolean>) => {
             state.modalOpen = action.payload;
+        },
+        SetEditModalOpenWithRtk: (state, action: PayloadAction<boolean>) => {
+            state.editModalOpenWithRtk = action.payload;
         },
         SetId: (state, action: PayloadAction<string>) => {
             state.id = action.payload;
@@ -109,7 +114,7 @@ const todoSlice = createSlice({
 
 
 
-export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetId, SetTitle, SetDescription, SetPriority, editTodo, FilterTodos } = todoSlice.actions;
+export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetModalOpenWithRtk, SetId, SetTitle, SetDescription, SetPriority, editTodo, FilterTodos } = todoSlice.actions;
 
 const todoSliceReducer = todoSlice.reducer;
 export default todoSliceReducer;
