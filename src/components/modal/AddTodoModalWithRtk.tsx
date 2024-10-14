@@ -1,11 +1,10 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useAppDispatch } from "../../redux/hook/hook";
-import { addTodo } from "../../redux/features/todo/todoSlice";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import { useAddTodoMutation } from "../../redux/features/api/api";
 
 
 const AddTodoModalWithRtk = () => {
@@ -13,21 +12,29 @@ const AddTodoModalWithRtk = () => {
   const [task, setTask] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('');
-  const dispatch = useAppDispatch();
+  const [addTodo, {isLoading, isSuccess}] = useAddTodoMutation();
 
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const newTodo = {
-      id: Math.random().toString(),
       title: task,
       description,
       priority,
-      isCompleted: false
     }
-    dispatch(addTodo(newTodo));
-    setOpen(false);
+    addTodo(newTodo);
   }
+
+
+  //close modal after creating todo
+  useEffect(()=> {
+    if(isSuccess){
+        setOpen(false);
+    }
+  },[isSuccess])
+
+
+
 
 
     return (
@@ -74,7 +81,7 @@ const AddTodoModalWithRtk = () => {
                     Priority
                   </Label>
                   <Select onValueChange={(val)=> setPriority(val)} required>
-                    <SelectTrigger className="w-[200px]">
+                    <SelectTrigger className="col-span-3">
                       <SelectValue placeholder="Select a priority" />
                     </SelectTrigger>
                     <SelectContent className="w-full">
@@ -92,7 +99,7 @@ const AddTodoModalWithRtk = () => {
                 <DialogClose asChild>
                   <Button type="button" className="bg-red-500">Cancel</Button>
                 </DialogClose>
-                <Button type="submit">Save</Button>
+                <Button type="submit">{isLoading ? "Processing..." : "Save Todo"}</Button>
               </DialogFooter>
             </form>
           </DialogContent>
