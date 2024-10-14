@@ -1,5 +1,5 @@
 import { useGetTodosQuery } from "../../redux/features/api/api";
-import AddTodoModal from "../modal/AddTodoModal";
+import AddTodoModalWithRtk from "../modal/AddTodoModalWithRtk";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 
@@ -18,7 +18,7 @@ const TodoContainer = () => {
       <>
         <div>
           <div className="flex justify-between mb-5">
-            <AddTodoModal />
+            <AddTodoModalWithRtk />
             <TodoFilter />
           </div>
           <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px]">
