@@ -15,6 +15,22 @@ type TEditTodo = {
     priority: string;
 }
 
+
+type TUpdatedData = {
+    title: string;
+    description: string;
+    priority: string;
+}
+
+export type TProperty = 'title' | 'description' | 'priority';
+
+type TSetUpdatedData = {
+    property: TProperty;
+    value: string;
+}
+
+
+
 type TInitialState = {
     Todos: TTodo[],
     todos: TTodo[],
@@ -26,7 +42,9 @@ type TInitialState = {
     editModalOpenWithRtk: boolean;
     filterPriority: string;
     todoId: string;
+    updatedData: TUpdatedData;
 }
+
 
 
 
@@ -40,7 +58,12 @@ const initialState : TInitialState = {
   modalOpen: false,
   editModalOpenWithRtk: false,
   filterPriority: '',
-  todoId: ''
+  todoId: '',
+  updatedData: {
+    title: '',
+    description: '',
+    priority: ''
+ }
 };
 
 
@@ -112,6 +135,15 @@ const todoSlice = createSlice({
         SetTodoId: (state, action: PayloadAction<string>) => {
             state.todoId = action.payload;
         },
+        SetUpdatedData: (state, action: PayloadAction<TUpdatedData | TSetUpdatedData>) => {
+            if ("property" in action.payload && "value" in action.payload) {
+                const { property, value } = action.payload as TSetUpdatedData;
+                state.updatedData[property] = value;
+            }
+            else{
+                state.updatedData = action.payload;
+            }
+        },
     }
 })
 
@@ -119,7 +151,7 @@ const todoSlice = createSlice({
 
 
 
-export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetEditModalOpenWithRtk, SetId, SetTitle, SetDescription, SetPriority, editTodo, FilterTodos } = todoSlice.actions;
+export const { addTodo, removeTodo, toggleCompleted,SetModalOpen, SetEditModalOpenWithRtk, SetId, SetTitle, SetDescription, SetPriority, editTodo, FilterTodos, SetTodoId, SetUpdatedData } = todoSlice.actions;
 
 const todoSliceReducer = todoSlice.reducer;
 export default todoSliceReducer;

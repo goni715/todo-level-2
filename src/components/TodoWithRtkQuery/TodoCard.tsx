@@ -1,5 +1,5 @@
 import { useDeleteTodoMutation, useUpdateTodoMutation } from "../../redux/features/api/api";
-import { removeTodo, SetDescription, SetEditModalOpenWithRtk, SetId, SetModalOpen, SetPriority, SetTitle, toggleCompleted } from "../../redux/features/todo/todoSlice";
+import { SetEditModalOpenWithRtk, SetTodoId, SetUpdatedData } from "../../redux/features/todo/todoSlice";
 import { useAppDispatch } from "../../redux/hook/hook";
 import EditTodoModalWithRtk from "../modal/EditTodoModalWithRtk";
 import { Button } from "../ui/button";
@@ -31,10 +31,8 @@ const TodoCard = ({title, description, _id, isCompleted, priority } :  TTodoCard
 
   const handleEditClick = () => {
     dispatch(SetEditModalOpenWithRtk(true));
-    // dispatch(SetId(id));
-    // dispatch(SetTitle(title));
-    // dispatch(SetDescription(description));
-    // dispatch(SetPriority(priority));
+    dispatch(SetTodoId(_id));
+    dispatch(SetUpdatedData({title, description, priority}));
   }
   
     return (
