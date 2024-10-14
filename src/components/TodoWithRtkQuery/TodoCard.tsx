@@ -1,10 +1,10 @@
-import { useDeleteTodoMutation } from "../../redux/features/api/api";
-import { removeTodo, SetDescription, SetId, SetModalOpen, SetPriority, SetTitle, toggleCompleted } from "../../redux/features/todo/todoSlice";
+import { useDeleteTodoMutation, useUpdateTodoMutation } from "../../redux/features/api/api";
+import { removeTodo, SetDescription, SetEditModalOpenWithRtk, SetId, SetModalOpen, SetPriority, SetTitle, toggleCompleted } from "../../redux/features/todo/todoSlice";
 import { useAppDispatch } from "../../redux/hook/hook";
-import EditTodoModal from "../modal/EditTodoModal";
+import EditTodoModalWithRtk from "../modal/EditTodoModalWithRtk";
 import { Button } from "../ui/button";
 
-type TTodoCardProps = {
+export type TTodoCardProps = {
   _id: string;
   title: string;
   description: string;
@@ -13,12 +13,24 @@ type TTodoCardProps = {
 }
 
 
-const TodoCard = ({title, description, _id, isCompleted, priority } : TTodoCardProps) => {
-  const dispatch = useAppDispatch();
+const TodoCard = ({title, description, _id, isCompleted, priority } :  TTodoCardProps) => {
   const [deleteTodo, {isLoading}] = useDeleteTodoMutation();
+  const [updateTodo] = useUpdateTodoMutation();
+  const dispatch = useAppDispatch();
+
+
+  const handleToggleUpdate = () => {
+    updateTodo({
+      id:_id,
+      data: {
+        isCompleted: !isCompleted
+      }
+    })
+  }
+
 
   const handleEditClick = () => {
-    // dispatch(SetModalOpen(true));
+    dispatch(SetEditModalOpenWithRtk(true));
     // dispatch(SetId(id));
     // dispatch(SetTitle(title));
     // dispatch(SetDescription(description));
@@ -28,7 +40,7 @@ const TodoCard = ({title, description, _id, isCompleted, priority } : TTodoCardP
     return (
       <>
         <div className="bg-white rounded-md flex justify-between items-center p-3 border">
-          <input onChange={()=>dispatch(toggleCompleted(_id))} className="cursor-pointer mr-4" type="checkbox" checked={isCompleted} name="check"/>
+          <input onChange={handleToggleUpdate} className="cursor-pointer mr-4" type="checkbox" checked={isCompleted} name="check"/>
           <p className="font-semibold flex-1">{title}</p>
           <div className="flex-1 flex items-center gap-2">
             <div className={`size-3 rounded-full ${priority==="high" && 'bg-red-500' || priority==="medium" && 'bg-yellow-500' || priority==="low" && 'bg-blue-500'}`}></div>
@@ -74,7 +86,7 @@ const TodoCard = ({title, description, _id, isCompleted, priority } : TTodoCardP
           </div>
         </div>
 
-        <EditTodoModal/>
+        <EditTodoModalWithRtk/>
       </>
     );
 };

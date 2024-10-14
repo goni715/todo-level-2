@@ -1,7 +1,7 @@
 import { useGetTodosQuery } from "../../redux/features/api/api";
 import { useAppSelector } from "../../redux/hook/hook";
 import AddTodoModalWithRtk from "../modal/AddTodoModalWithRtk";
-import TodoCard from "./TodoCard";
+import TodoCard, { TTodoCardProps } from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 
 
@@ -32,7 +32,7 @@ const TodoContainer = () => {
           </div>
           <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px]">
             <div className="bg-white p-5 w-full h-full rounded-lg space-y-3">
-              {todos?.map((item, i) => (
+              {todos?.map((item : TTodoCardProps, i:number) => (
                 <TodoCard key={i.toString()} {...item}/>
               ))}
               {todos?.length === 0 && (

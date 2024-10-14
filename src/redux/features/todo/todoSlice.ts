@@ -30,7 +30,7 @@ type TInitialState = {
 
 
 
-const initialState: TInitialState = {
+const initialState : TInitialState = {
   Todos : [],
   todos : [],
   id: "",
