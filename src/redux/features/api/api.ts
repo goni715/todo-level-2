@@ -8,10 +8,17 @@ export const baseApi = createApi({
   tagTypes: ['Todos'],
   endpoints: (builder)=> ({
     getTodos: builder.query({
-        query: (priority) => ({
-            url: `/todo/get-todos?priority=${priority}`,
-            method: 'GET'
-        }),
+        query: (priority) => {
+          const params = new URLSearchParams();
+          if(priority){
+            params.append('priority', priority);
+          }
+          return {
+            url: `/todo/get-todos`,
+            method: 'GET',
+            params: params //params: {priority:priority}
+          }
+        }, 
         providesTags: ['Todos']
     }),
     addTodo: builder.mutation({
@@ -21,8 +28,15 @@ export const baseApi = createApi({
           body: data
       }),
       invalidatesTags: ['Todos']
-  })
+    }),
+    deleteTodo: builder.mutation({
+      query: (id) => ({
+          url: `/todo/delete-todo/${id}`,
+          method: 'DELETE',
+      }),
+      invalidatesTags: ['Todos']
+    })
   })
 });
 
-export const { useGetTodosQuery, useAddTodoMutation } = baseApi;
+export const { useGetTodosQuery, useAddTodoMutation, useDeleteTodoMutation } = baseApi;

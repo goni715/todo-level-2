@@ -1,10 +1,11 @@
+import { useDeleteTodoMutation } from "../../redux/features/api/api";
 import { removeTodo, SetDescription, SetId, SetModalOpen, SetPriority, SetTitle, toggleCompleted } from "../../redux/features/todo/todoSlice";
 import { useAppDispatch } from "../../redux/hook/hook";
 import EditTodoModal from "../modal/EditTodoModal";
 import { Button } from "../ui/button";
 
 type TTodoCardProps = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   priority: string;
@@ -12,21 +13,22 @@ type TTodoCardProps = {
 }
 
 
-const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardProps) => {
+const TodoCard = ({title, description, _id, isCompleted, priority } : TTodoCardProps) => {
   const dispatch = useAppDispatch();
+  const [deleteTodo, {isLoading}] = useDeleteTodoMutation();
 
   const handleEditClick = () => {
-    dispatch(SetModalOpen(true));
-    dispatch(SetId(id));
-    dispatch(SetTitle(title));
-    dispatch(SetDescription(description));
-    dispatch(SetPriority(priority));
+    // dispatch(SetModalOpen(true));
+    // dispatch(SetId(id));
+    // dispatch(SetTitle(title));
+    // dispatch(SetDescription(description));
+    // dispatch(SetPriority(priority));
   }
   
     return (
       <>
         <div className="bg-white rounded-md flex justify-between items-center p-3 border">
-          <input onChange={()=>dispatch(toggleCompleted(id))} className="cursor-pointer mr-4" type="checkbox" checked={isCompleted} name="check"/>
+          <input onChange={()=>dispatch(toggleCompleted(_id))} className="cursor-pointer mr-4" type="checkbox" checked={isCompleted} name="check"/>
           <p className="font-semibold flex-1">{title}</p>
           <div className="flex-1 flex items-center gap-2">
             <div className={`size-3 rounded-full ${priority==="high" && 'bg-red-500' || priority==="medium" && 'bg-yellow-500' || priority==="low" && 'bg-blue-500'}`}></div>
@@ -53,7 +55,7 @@ const TodoCard = ({title, description, id, isCompleted, priority } : TTodoCardPr
                 ></path>
               </svg>
             </Button>
-            <Button onClick={()=>dispatch(removeTodo(id))} className="bg-red-500">
+            <Button disabled={isLoading} onClick={()=>deleteTodo(_id)} className="bg-red-500 disabled:cursor-not-allowed">
               <svg
                 className="size-5"
                 fill="none"
